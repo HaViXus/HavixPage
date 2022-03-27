@@ -3,14 +3,19 @@ import { Dictionary } from "../Utils/Dictionary";
 import { Theme } from "./ThemeContext";
 import { ThemeConfig, ThemeElement } from "./ThemeContext.interfaces";
 
- 
+export const enum Colors {
+	lightGray = "#191919",
+	gray="#0F0F0F",
+	darkGray = "#070707"
+}
+
 export const themeStyle: Dictionary<ThemeConfig> = {
 	[Theme.Light as string]: {
 		pageColor: "white",
 		defaultTextColor: "black"
 	},
 	[Theme.Dark as string]: {
-		pageColor: "#101010",
+		pageColor: Colors.gray,
 		defaultTextColor: "white"
 	}
 };
