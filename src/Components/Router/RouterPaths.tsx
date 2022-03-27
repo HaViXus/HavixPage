@@ -1,10 +1,9 @@
 import React from "react";
 import { GamesMenuPage } from "../../Pages/GamesMenuPage/GamesMenuPage";
 import { HomePage } from "../../Pages/HomePage/HomePage";
-import { Dictionary } from "../../Utils/Dictionary";
-import { RouterPath } from "./Router.interfaces";
+import { RouterPathsDictionary } from "./Router.interfaces";
 
-export const routerPaths: Dictionary<RouterPath> = {
+export const routerPaths: RouterPathsDictionary = {
 	Home: {
 		path: "/",
 		nameToDisplay: "Home",
@@ -30,18 +29,35 @@ export const routerPaths: Dictionary<RouterPath> = {
 		category: "Gallery",
 		isRoot: true
 	},
-	SpriteSheets: {
+	SpriteSheetsMenu: {
 		path: "/Gallery/SpriteSheets",
 		nameToDisplay: "Sprite sheets",
 		pageComponent: <GamesMenuPage/>,
 		display: true,
 		category: "Gallery"
 	},
-	Pictures: {
-		path: "/Gallery/Pictures",
-		nameToDisplay: "Pictures",
+	SpriteSheet: {
+		path: "/Gallery/SpriteSheets/:id",
+		nameToDisplay: "Sprite sheet",
+		pageComponent: <GamesMenuPage/>,
+	},
+	PixelArts: {
+		path: "/Gallery/PixelArts",
+		nameToDisplay: "Pixel arts",
 		pageComponent: <GamesMenuPage/>,
 		display: true,
 		category: "Gallery"
+	},
+	BoxOfStuff: {
+		path: "/BoxOfStuff",
+		nameToDisplay: "Box of stuff",
+		pageComponent: <GamesMenuPage/>,
+		display: true,
+	},
+	Contact: {
+		path: "/Contact",
+		nameToDisplay: "Contact",
+		pageComponent: <GamesMenuPage/>,
+		display: true,
 	}
 };

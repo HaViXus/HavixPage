@@ -8,3 +8,19 @@ export interface RouterPath {
     category?: string;
     isRoot?: boolean;
 }
+
+export enum RouterKeys {
+    Home = "Home",
+    GamesMenu = "GamesMenu",
+	Game="Game",
+	Gallery = "Gallery",
+	SpriteSheetsMenu = "SpriteSheetsMenu",
+	SpriteSheet = "SpriteSheet",
+	PixelArts = "PixelArts",
+	BoxOfStuff = "BoxOfStuff",
+	Contact = "Contact"
+}
+
+export type RouterPathsDictionary = {
+    [key in RouterKeys]: RouterPath
+}
