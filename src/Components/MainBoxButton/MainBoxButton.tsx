@@ -1,12 +1,16 @@
 import React from "react";
 import { MainBoxButtonProps } from "./MainBoxButton.interfaces";
-import { BoxButtonFooter, MainBoxButtonStyled } from "./MainBoxButton.styles";
+import { BoxButtonFooter, BoxButtonTitle, BoxFooterBackground, MainBoxButtonStyled } from "./MainBoxButton.styles";
 
 export const MainBoxButton = (props: MainBoxButtonProps) => {
 	return(
 		<MainBoxButtonStyled onClick={props.onClick}>
 			<BoxButtonFooter>
-				{props.title}
+				<BoxFooterBackground/>
+				<BoxButtonTitle>
+					{props.title}
+				</BoxButtonTitle>
+				
 			</BoxButtonFooter>
 		</MainBoxButtonStyled>
 	);
