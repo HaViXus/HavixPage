@@ -31,7 +31,7 @@ export const HomePage = () => {
 		const TilesRows = MainTiles.reduce((previous, tile, index) => {
 			if(index % rowSize === 0) {
 				const nextTile = MainTiles[index+1];
-				const newRow = <ContentRow>{[tile, nextTile]}</ContentRow>;
+				const newRow = <ContentRow key={index}>{[tile, nextTile]}</ContentRow>;
 				return([...previous, newRow]);
 				
 			} else{

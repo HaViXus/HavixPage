@@ -1,31 +1,50 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { NavbarTileProps } from "./Navbar.interfaces";
 import { StyledNavbarMenu, StyledNavbarMenuTile, StyledNavbarTile } from "./Navbar.styles";
 import { routerPaths } from "../Router/RouterPaths";
-import { Link } from "react-router-dom";
 import { useOutsideClick } from "../../Utils/useOutsideClick";
+import { useNavigate } from "react-router-dom";
+import { RouterKeys } from "../Router/Router.interfaces";
 
 export const NavbarMenu = (props: NavbarTileProps) => {
+	const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
 	const rootPath = routerPaths[props.id];
 	const rootMenuTileText = rootPath.nameToDisplay;
 	const category = rootPath.category;
 	const menuPaths = Object.entries(routerPaths).filter(([, routerPath]) => routerPath.category === category && !routerPath.isRoot);
-	const displayTileMenu = props.selectedTile === props.id;
 	const menuRef = useRef<HTMLInputElement>(null);
+	const navigation = useNavigate();
 
-	const hideVisibleTile = () => props.setSelectedTile(undefined);
+	const hideVisibleTile = () => setIsMenuVisible(false);
 
 	useOutsideClick(menuRef, hideVisibleTile);
 
 	const onRootTileClick = () => {
-		props.selectedTile === props.id ? hideVisibleTile() : props.setSelectedTile(props.id);
+		setIsMenuVisible(!isMenuVisible);
+	};
+
+	const isMenuTileSelected = (id: RouterKeys) => {
+		const path = window.location.pathname;
+		const isSelected = !!menuPaths.find(([key, routerPath]) => id === key && routerPath.path === path);
+		return isSelected;
 	};
 
 	const getMenuTiles = () => {
-		const tiles = menuPaths.map(([pathKey, routerPath]) => {
+		const tiles = menuPaths.map(([pathKey, routerPath], index) => {
+			const onMenuTileClick = () => {
+				const pathToGo = routerPath.path;
+				navigation(pathToGo);
+			};
+
+			const isLast = index === menuPaths.length - 1;
+
 			return (
-				<StyledNavbarMenuTile key={pathKey}>
-					<Link to={routerPath.path}> {routerPath.nameToDisplay} </Link> 
+				<StyledNavbarMenuTile key={pathKey}
+					onClick={onMenuTileClick}
+					isSelected={isMenuTileSelected(pathKey as RouterKeys)}
+					isLast={isLast}
+				>
+					{routerPath.nameToDisplay}
 				</StyledNavbarMenuTile>
 			);
 		});
@@ -33,14 +52,16 @@ export const NavbarMenu = (props: NavbarTileProps) => {
 		return tiles;
 	};
 
-	const menuTiles = getMenuTiles();
-
 	return(
-		<StyledNavbarTile ref={menuRef} onClick={onRootTileClick}>
+		<StyledNavbarTile ref={menuRef}
+			onClick={onRootTileClick}
+			isSelected={props.isSelected}
+			isLast={props.isLast}
+		>
 			{rootMenuTileText} V
-			{displayTileMenu === true && 
+			{isMenuVisible === true && 
 				<StyledNavbarMenu>
-					{menuTiles} 
+					{getMenuTiles()} 
 				</StyledNavbarMenu>
 			}
 		</StyledNavbarTile>

@@ -2,23 +2,33 @@ import React from "react";
 import { NavbarTileProps } from "./Navbar.interfaces";
 import { StyledNavbarTile } from "./Navbar.styles";
 import { routerPaths } from "../Router/RouterPaths";
-import { Link } from "react-router-dom";
 import { NavbarMenu } from "./NavbarMenu";
+import { useNavigate } from "react-router-dom";
+
 
 export const NavbarTile = (props: NavbarTileProps) => {
 	const routerPathToUse = routerPaths[props.id];
-	const pathToGo = routerPathToUse.path;
 	const tileText = routerPathToUse.nameToDisplay;
+	const navigation = useNavigate();
+
+	const onTileClick = () => {
+		const pathToGo = routerPathToUse.path;
+		navigation(pathToGo);
+	};
 
 	return(
 		routerPathToUse.isRoot ? (
 			<NavbarMenu id={props.id} 
 				selectedTile={props.selectedTile}
-				setSelectedTile={props.setSelectedTile}
+				isLast={props.isLast}
+				isSelected={props.isSelected}
 			/>
 		) : (
-			<StyledNavbarTile>
-				<Link to={pathToGo}> {tileText} </Link>
+			<StyledNavbarTile isLast={props.isLast}
+				isSelected={props.isSelected}
+				onClick={onTileClick}
+			>
+				{tileText}
 			</StyledNavbarTile>
 		)
 	);

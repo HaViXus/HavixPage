@@ -1,12 +1,13 @@
-export interface NavbarTileProps {
-    id: string;
-    selectedTile?: string;
-    setSelectedTile: (selectedTile?: string) => void;
-}
+import { RouterKeys } from "../Router/Router.interfaces";
 
 export interface NavbarTileProps {
-    id: string;
+    id: RouterKeys;
     selectedTile?: string;
-    setSelectedTile: (selectedTile?: string) => void;
+    isLast: boolean;
+    isSelected: boolean;
+}
+export interface StyledNavbarTileProps {
+    isLast: boolean;
+    isSelected: boolean;
 }
 

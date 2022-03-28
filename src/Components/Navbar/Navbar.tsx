@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyledNavbar } from "./Navbar.styles";
 import { routerPaths } from "../Router/RouterPaths";
 import { NavbarTile } from "./NavbarTile";
+import { RouterKeys } from "../Router/Router.interfaces";
 
 export const Navbar = () => {
-	const [selectedTile, setSelectedTile] = useState<string>();
+	const path = window.location.pathname;
+	const selectedTileEntry = Object.entries(routerPaths).find(([, routerPath]) => routerPath.path === path);
+	const selectedTile = selectedTileEntry?.[0] || routerPaths[RouterKeys.Home].path;
+	
+	const isSelected = (id: string) => id === selectedTile;
 
 	const getTiles = () => {
 		const routerPathsToDisplay = Object.entries(routerPaths).filter(([, routerPath]) => {
@@ -14,11 +19,15 @@ export const Navbar = () => {
 			
 			return !!isPathToDisplay;
 		});
-		return routerPathsToDisplay.map(([key]) => (
+
+		const isLast = (index: number) => index === routerPathsToDisplay.length - 1;
+
+		return routerPathsToDisplay.map(([key], index) => (
 			<NavbarTile key={key} 
-				id={key} 
+				id={key as RouterKeys} 
 				selectedTile={selectedTile}
-				setSelectedTile={setSelectedTile}
+				isSelected={isSelected(key)}
+				isLast={isLast(index)}
 			/>
 		));
 	};
