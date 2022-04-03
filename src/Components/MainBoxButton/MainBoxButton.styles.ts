@@ -1,34 +1,60 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Colors } from "../../ThemeContext/ThemeContext.styles";
 
-const MainBoXButtonStyleDefault = css`
-	background-color: ${Colors.lightGray};
-	font-size: 8.5vh;
+
+const getBackgroundColor = (backgroundColor: string) => backgroundColor ? `rgb(${backgroundColor})` : Colors.darkGray;
+
+const mainBoxButtonAnimationOnHover = keyframes`
+	0% {}
+	100% {
+		font-size: 10vh;
+	}
 `;
 
-const MainBoxButtonStyledHover = css`
-	font-size: 10vh;
-	background: linear-gradient(70deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 36%, rgba(255,255,255,0.2) 100%);
+const hoverEffectContainerAnimationOnHover = keyframes`
+	0%{}
+	100%{
+		background: linear-gradient(70deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.02) 36%, rgba(255,255,255,0.02) 100%);
+	}
 `;
 
-const MainBoxButtonAnimationOnHover = keyframes`
-	0% {${MainBoXButtonStyleDefault}}
-	100% {${MainBoxButtonStyledHover}}
+export const HoverEffectContainer = styled.div`
+	display: flex;
+	position: absolute;
+	width: 100%;
+	height: 100%;
 `;
 
-export const MainBoxButtonStyled = styled.div`
+export const MainBoxButtonStyled = styled.div<{meanImageColor: string}>`
 	display: flex;
 	position: relative;
 	height: 100%;
 	aspect-ratio: 2 / 1;
-	${MainBoXButtonStyleDefault}
+	font-size: 8.5vh;
 	cursor: pointer;
-	
+	overflow: hidden;
+	background-color: ${props => getBackgroundColor(props.meanImageColor)};
+
 	&:hover{
-		animation-name: ${MainBoxButtonAnimationOnHover};
- 		animation-duration: 0.08s;	
-		animation-fill-mode: forwards;
+		animation-name: ${mainBoxButtonAnimationOnHover};
+		animation-duration: 0.08s;	
+		animation-fill-mode: forwards;	
+
+		${HoverEffectContainer}{
+			animation-name: ${hoverEffectContainerAnimationOnHover};
+			animation-duration: 0.08s;	
+			animation-fill-mode: forwards;
+		}
 	}
+`;
+
+export const StyledImage = styled.img<{isLoaded: boolean}>`
+	display: ${props => props.isLoaded ? "flex" : "none"};
+	width: 100%;
+	height: 100%;
+	image-rendering: pixelated;
+	object-fit: cover;
+	user-select: none;
 `;
 
 export const BoxButtonFooter = styled.div`
@@ -46,6 +72,7 @@ export const BoxFooterBackground = styled.div`
 	height: 100%;
 	background-color:${Colors.darkGray};
 	clip-path: polygon(0 0, 100% 55%, 100% 100%, 0% 100%);
+	z-index: 0;
 `;
 
 export const BoxButtonTitle = styled.div`
@@ -53,7 +80,7 @@ export const BoxButtonTitle = styled.div`
 	position: absolute;
 	width: 100%;
 	height: 80%;
-	z-index: 1;
+	z-index: 2;
 	top: -45%;
 	left: 5%;
 	user-select: none;

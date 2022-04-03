@@ -1,6 +1,8 @@
 import React from "react";
+import { Gallery } from "../../Pages/Galery.tsx/Gallery";
+import { GalleryType } from "../../Pages/Galery.tsx/Gallery.interfaces";
 import { GamesMenuPage } from "../../Pages/GamesMenuPage/GamesMenuPage";
-import { HomePage } from "../../Pages/HomePage/HomePage";
+import {HomePage} from "../../Pages/HomePage/HomePage";
 import { RouterPathsDictionary } from "./Router.interfaces";
 
 export const routerPaths: RouterPathsDictionary = {
@@ -44,7 +46,7 @@ export const routerPaths: RouterPathsDictionary = {
 	PixelArts: {
 		path: "/Gallery/PixelArts",
 		nameToDisplay: "Pixel arts",
-		pageComponent: <GamesMenuPage/>,
+		pageComponent: <Gallery type={GalleryType.PixelArt}/>,
 		display: true,
 		category: "Gallery"
 	},
