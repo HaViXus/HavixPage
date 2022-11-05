@@ -48,13 +48,14 @@ export const MainBoxButtonStyled = styled.div<{meanImageColor: string}>`
 	}
 `;
 
-export const StyledImage = styled.img<{isLoaded: boolean}>`
+export const StyledImage = styled.img<{isLoaded: boolean, isBlurred: boolean}>`
 	display: ${props => props.isLoaded ? "flex" : "none"};
 	width: 100%;
 	height: 100%;
 	image-rendering: pixelated;
 	object-fit: cover;
 	user-select: none;
+	${props => props.isBlurred ? "filter: blur(8px)" : ""};
 `;
 
 export const BoxButtonFooter = styled.div`

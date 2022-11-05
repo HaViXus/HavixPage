@@ -20,5 +20,10 @@ public class ImageEndpoint {
     ResponseEntity<Resource> getImage(@RequestParam("path") String path) {
         return controller.getImage(path);
     }
+
+    @GetMapping("/imagesNames")
+    List<String> getAllCategoryImagesName(@RequestParam("folder") String folderName) {
+        return controller.getAllCategoryImagesName(folderName);
+    }
 }
 

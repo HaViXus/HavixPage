@@ -1,9 +1,11 @@
 import React from "react";
-import { Gallery } from "../../Pages/Galery.tsx/Gallery";
-import { GalleryType } from "../../Pages/Galery.tsx/Gallery.interfaces";
+import { PixelsGallery } from "../../Pages/Gallery/Gallery";
+import { GalleryType } from "../../Pages/Gallery/Gallery.interfaces";
 import { GamesMenuPage } from "../../Pages/GamesMenuPage/GamesMenuPage";
 import {HomePage} from "../../Pages/HomePage/HomePage";
+import { SpriteSheetPage } from "../../Pages/SpriteSheetPage/SpriteSheetPage";
 import { RouterPathsDictionary } from "./Router.interfaces";
+
 
 export const routerPaths: RouterPathsDictionary = {
 	Home: {
@@ -34,19 +36,19 @@ export const routerPaths: RouterPathsDictionary = {
 	SpriteSheetsMenu: {
 		path: "/Gallery/SpriteSheets",
 		nameToDisplay: "Sprite sheets",
-		pageComponent: <GamesMenuPage/>,
+		pageComponent: <PixelsGallery type={GalleryType.SpriteSheet}/>,
 		display: true,
 		category: "Gallery"
 	},
 	SpriteSheet: {
 		path: "/Gallery/SpriteSheets/:id",
 		nameToDisplay: "Sprite sheet",
-		pageComponent: <GamesMenuPage/>,
+		pageComponent: <SpriteSheetPage/>,
 	},
 	PixelArts: {
 		path: "/Gallery/PixelArts",
 		nameToDisplay: "Pixel arts",
-		pageComponent: <Gallery type={GalleryType.PixelArt}/>,
+		pageComponent: <PixelsGallery type={GalleryType.PixelArt}/>,
 		display: true,
 		category: "Gallery"
 	},

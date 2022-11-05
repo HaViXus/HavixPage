@@ -10,6 +10,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class ImageRepositoryController {
@@ -52,5 +54,21 @@ public class ImageRepositoryController {
         }
 
         return null;
+    }
+
+    public List<String> getAllCategoryImagesName(String folderName) {
+        String stringPath = imageRepositoryPath+"\\"+folderName;
+        File folder = new File(stringPath);
+        List<String> imagesNames = new ArrayList<>();
+
+        File[] listOfFiles = folder.listFiles();
+
+        for (File imageFile  : listOfFiles) {
+            if (imageFile.isFile()) {
+                imagesNames.add(imageFile.getName());
+            }
+        }
+
+        return imagesNames;
     }
 }

@@ -7,3 +7,8 @@ export enum GalleryType {
 export interface GalleryProps {
 	type: GalleryType;
 }
+
+export interface PreviewFunctionProps {
+	imageName?: string;
+	imageURL?: string;
+}

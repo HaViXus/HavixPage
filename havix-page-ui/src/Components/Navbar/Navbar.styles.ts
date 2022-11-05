@@ -8,6 +8,7 @@ export const StyledNavbar = styled.div`
     width: 100%;
     min-height:44px;
     background-color: ${Colors.darkGray};
+    font-family: "PressStart";
 `;
 
 export const StyledNavbarTile = styled.div<StyledNavbarTileProps>`
@@ -17,7 +18,7 @@ export const StyledNavbarTile = styled.div<StyledNavbarTileProps>`
     padding: 0 3rem 0 3rem;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     background-color: ${Colors.darkGray};
     user-select: none;
     text-decoration:${(props) => props.isSelected ? "underline" : "none"};
@@ -32,15 +33,14 @@ export const StyledNavbarTile = styled.div<StyledNavbarTileProps>`
 export const StyledNavbarMenu = styled.div`
     display: flex;
     position: absolute;
+    width: 100%;
     top: 100%;
     right: 0;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0 1rem 0 1rem;
-    font-size: 2rem;
     background-color: ${Colors.darkGray};
-    z-index: 1;
+    z-index: 2;
 `;
 
 export const StyledNavbarMenuTile = styled.div<StyledNavbarTileProps>`
@@ -49,9 +49,16 @@ export const StyledNavbarMenuTile = styled.div<StyledNavbarTileProps>`
     width: 100%;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 1.2rem;
+    padding: 0.7rem 0;
     background-color: ${Colors.darkGray};
+    border-bottom: 2px solid #aaaaaa;
     user-select: none;
-    text-decoration:${(props) => props.isSelected ? "underline" : "none"};
+    font-weight:${(props) => props.isSelected ? "bold" : "none"};
+    color: ${(props) => props.isSelected ? "red" : "#ffffff"};
     cursor: pointer;
+
+    &:hover{
+        background-color: ${Colors.lightGray};
+    }
 `;
