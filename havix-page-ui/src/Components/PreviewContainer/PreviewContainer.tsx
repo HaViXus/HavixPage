@@ -1,62 +1,62 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ImageFullPreview } from "../ImageFullPreview/ImageFullPreview";
-import { getImageURL } from "./PreviewContainer.adapters";
 import { PreviewContainerProps } from "./PreviewContainer.interfaces";
 import { StyledPreviewContainer } from "./PreviewContainer.styles";
+import { defaultDescription, defaultTitle } from "./PreviewContainer.utils";
+import { PreviewDefaultButtons } from "./PreviewContainerDefaultButtons";
 import { PreviewContainerImage } from "./PreviewContainerImage/PreviewContainerImage";
 import { PreviewContainerPanel } from "./PreviewContainerPanel/PreviewContainerPanel";
 
 export const PreviewContainer = (props: PreviewContainerProps) => {
-	const [imageURL, setImageURL] = useState<string>();
-	const defaultTitle = "Nice title";
-	const defaultDescription = "Could be better, but still not bad";
-	const [title, setTitle] = useState<string>(defaultTitle);
-	const [description, setDescription] = useState<string>(defaultDescription);
+	const {selectedObject, description, title, } = props;
+	//const [imageURL, setImageURL] = useState<string>();
+	//const [title, setTitle] = useState<string>(defaultTitle);
+	//const [description, setDescription] = useState<string>(defaultDescription);
+	const previewData = selectedObject.data;
 
 	const onPreviewClick = () => {
-		props.onPreviewClick({imageName: undefined, imageURL: imageURL});
+		props.onPreviewClick({imageName: undefined, imageURL: previewData});
 	};
 
 	const onDownloadClick = () => {
-		if(imageURL){
+		if(previewData){
 			const link = document.createElement("a");
-			link.href = imageURL;
-			link.setAttribute("download", `${title}.png`); 
+			link.href = previewData;
+			link.setAttribute("download", `${props.title}.png`); 
 			document.body.appendChild(link);
 			link.click();
 		}
 	};
 
-	const getObjectData = () => {
-		if(props.selectedObjectPath){
-			axios.get(`/previews?path=${props.selectedObjectPath}`).then(response => {
-				setTitle(response.data?.title);
-				setDescription(response.data?.description);
-			}).catch(() => {
-				setTitle(defaultTitle);
-				setDescription(defaultDescription);
-			});
-		}
-	};
+	const defaultButtons = PreviewDefaultButtons({onDownloadClick, onPreviewClick});
+	const buttons = props.buttons || defaultButtons;
 
-	useEffect(()=> {
-		if(props.selectedObjectPath){
-			getImageURL(props.selectedObjectPath, setImageURL);
-			getObjectData();
-		}
-	}, [props.selectedObjectPath]);
+	// const getObjectData = () => {
+	// 	if(props.selectedObjectPath){
+	// 		if(props.previewType === GalleryType.Game) {
+	// 			getGamePreview(props.selectedObjectPath, setTitle, setDescription);
+	// 		} else {
+	// 			getDefaultPreview(props.selectedObjectPath, setTitle, setDescription);
+	// 		}
+	// 	}
+	// };
+
+	// useEffect(()=> {
+	// 	if(props.selectedObjectPath){
+	// 		getImageURL(props.selectedObjectPath, setImageURL);
+	// 		getObjectData();
+	// 	}
+	// }, [props.selectedObjectPath]);
 
 	return(
 		<>
 			<StyledPreviewContainer>
 				<PreviewContainerPanel title={title}
 					description={description}
-					onPreviewClick={onPreviewClick}
-					onDownloadClick={onDownloadClick}/>
-				<PreviewContainerImage imageURL={imageURL} onImageClick={onPreviewClick}/>
+					buttons={buttons}/>
+				<PreviewContainerImage selectedObject={selectedObject} onImageClick={onPreviewClick}/>
 			</StyledPreviewContainer>
-			<ImageFullPreview imageURL={imageURL}
+			<ImageFullPreview selectedObject={selectedObject}
 				isVisible={props.isFullScreenPreview}
 				onClose={onPreviewClick}
 				externalLeftButtonRef={props.previewLeftButtonRef}

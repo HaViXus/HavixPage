@@ -53,6 +53,5 @@ export const StyledButtonsPanel = styled.div`
 
 export const PanelButtonContainer = styled.div`
 	display: flex;
-	aspect-ratio: 1/1;
 	margin-left: 3%;
 `;

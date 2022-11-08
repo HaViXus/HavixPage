@@ -1,5 +1,7 @@
+import { GalleryObject } from "../../Pages/Gallery/Gallery.interfaces";
+
 export interface ImageFullPreviewProps {
-	imageURL: string;
+	selectedObject: GalleryObject;
 	isVisible: boolean;
 	onClose: () => void;
 	externalLeftButtonRef?: any;

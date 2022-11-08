@@ -74,7 +74,6 @@ export const AnimationTile = (props: AnimationTileProps) => {
 
 	const refreshTile = (ctx: CanvasRenderingContext2D, backgroundColor: string) => {
 		ctx.fillStyle = backgroundColor;
-		console.log("COL:", backgroundColor);
 		ctx.fillRect(0, 0, tileWidth, tileHeight);
 	};
 

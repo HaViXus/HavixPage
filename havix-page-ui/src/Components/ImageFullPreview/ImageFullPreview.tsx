@@ -3,6 +3,7 @@ import { ImageFullPreviewProps } from "./ImageFullPreview.interfaces";
 import { StyledArrowIconContainer, StyledImage, StyledImageFullPreview, StyledImageFullPreviewContainer, StyledXMarkIconContainer } from "./ImageFullPreview.styles";
 import { faXmark, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getContent } from "../../Pages/Gallery/ContentHandler";
 
 export const ImageFullPreview = (props: ImageFullPreviewProps) => {
 
@@ -34,7 +35,7 @@ export const ImageFullPreview = (props: ImageFullPreviewProps) => {
 	return (
 		<StyledImageFullPreviewContainer isVisible={props.isVisible}>
 			<StyledImageFullPreview>
-				<StyledImage src={props.imageURL}/>
+				{getContent(props.selectedObject)}
 				<StyledXMarkIconContainer onClick={onClick}>
 					<FontAwesomeIcon icon={faXmark} />
 				</StyledXMarkIconContainer>

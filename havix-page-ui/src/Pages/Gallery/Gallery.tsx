@@ -1,65 +1,56 @@
 import React, { useRef, useState } from "react";
 import { PageTemplate } from "../PageTemplate/PageTemplate";
-import { GalleryProps as PixelsGalleryProps, GalleryType, PreviewFunctionProps } from "./Gallery.interfaces";
+import { GalleryObject, GalleryProps as PixelsGalleryProps, PreviewFunctionProps } from "./Gallery.interfaces";
 import { StyledGallery, StyledGalleryContent, StyledGalleryListContainer } from "./Gallery.styles";
 import ListComponent from "../../Components/List/List";
 import { PreviewContainer } from "../../Components/PreviewContainer/PreviewContainer";
-import { useNavigate } from "react-router-dom";
 
-export const PixelsGallery = (props: PixelsGalleryProps) => {
-	const navigate = useNavigate();
-	const [selectedObject, setSelectedObject] = useState<string>();
+
+export const Gallery = (props: PixelsGalleryProps) => {
 	const [isFullPreview, setIsFullPreview] = useState<boolean>(false);
 
 	const previewLeftButtonRef = useRef(null);
 	const previewRightButtonRef = useRef(null);
 
-	const onListSelect = (selectedPosition: string) => {
-		setSelectedObject(selectedPosition);
+	const onListSelect = (selectedObject: GalleryObject) => {
+		if(selectedObject) {
+			props.setSelectedObject(selectedObject);
+		}
 	};
 
-	const dataPath = {
-		[GalleryType.PixelArt]: "pixelArt",
-		[GalleryType.SpriteSheet]: "spriteSheet"
+	const onPreviewClick = (previewProps: PreviewFunctionProps) => {
+		props.fullScreenOnPreviewClick && setIsFullPreview(!isFullPreview);
+		props.onPreviewClick(previewProps);
 	};
 
-	const onPixelArtPreviewClick = (props: PreviewFunctionProps) => {
-		setIsFullPreview(!isFullPreview);
-	};
 
-	const onSpriteSheetPreviewClick = ({imageName}: PreviewFunctionProps) => {
-		const spriteSheetPage = `/Gallery/SpriteSheets/${imageName}`;
-		navigate(spriteSheetPage);
-	};
+	// const previewClickFunction = () => {
+	// 	const slashIndex = props.selectedObject?.lastIndexOf("/");
+	// 	const imageName = props.selectedObject.substring(slashIndex + 1);
 
-	const onPreviewClick = {
-		[GalleryType.PixelArt]: onPixelArtPreviewClick,
-		[GalleryType.SpriteSheet]: onSpriteSheetPreviewClick 
-	};
+	// 	onPreviewClick[props.type] && onPreviewClick[props.type]({imageName, imageURL: props.selectedObject});
+	// };
 
-	const previewClickFunction = () => {
-		const slashIndex = selectedObject?.lastIndexOf("/");
-		const imageName = selectedObject.substring(slashIndex + 1);
-
-		onPreviewClick[props.type] && onPreviewClick[props.type]({imageName, imageURL: selectedObject});
-	};
-	
 	return(
 		<PageTemplate>
 			<StyledGallery>
 				<StyledGalleryContent>
-					<PreviewContainer selectedObjectPath={selectedObject}
+					<PreviewContainer //selectedObjectPath={props.selectedObject}
+						selectedObject={props.selectedObject}
+						description={props.description}
+						title={props.title}
 						previewLeftButtonRef={previewLeftButtonRef}
 						previewRightButtonRef={previewRightButtonRef}
 						isFullScreenPreview={isFullPreview}
-						onPreviewClick={previewClickFunction}
-
+						onPreviewClick={onPreviewClick}
+						buttons={props.previewButtons}
 					/>
 				</StyledGalleryContent>
 				<StyledGalleryListContainer>
-					<ListComponent dataPath={dataPath[props.type]}
+					<ListComponent selectedObject={props.selectedObject}
+						objectsMetadata={props.objectsMetadata}
+						objectReceiver={props.objectReceiver}
 						onSelect={onListSelect}
-						selectedPosition={selectedObject}
 						externalLeftButtonRef={previewLeftButtonRef}
 						externalRightButtonRef={previewRightButtonRef}
 					/>

@@ -9,11 +9,9 @@ import java.util.List;
 
 public class CategoryRepositoryController {
     private final CategoryRepository repository;
-    private final ImageRepositoryController imagesRepository;
 
     public CategoryRepositoryController(CategoryRepository repository){
         this.repository = repository;
-        imagesRepository = new ImageRepositoryController();
     }
 
     public List<Category> getAll(){

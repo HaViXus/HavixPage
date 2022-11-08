@@ -31,14 +31,6 @@ export const StyledList = styled.div`
 	width: 100%;
 `;
 
-export const StyledListImage = styled.img`
-	display: ${props=> props.src ? "flex" : "none"};
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-	image-rendering: pixelated;
-`;
-
 export const StyledListImageContainer = styled.div<{selected: boolean}>`
 	display: flex;
 	flex-grow: 1;

@@ -1,13 +1,23 @@
 import styled from "styled-components";
 import { ComponentColor } from "./IconButton.interfaces";
 
-export const StyledIconButton = styled.button<{backgroundColor: ComponentColor, iconColor: ComponentColor}>`
+export const StyledIconButton = styled.button<{backgroundColor: ComponentColor, iconColor: ComponentColor, isText: boolean}>`
 	display: flex;
 	width: 100%;
 	height: 100%;
 	align-items: center;
 	justify-content: center;
-	aspect-ratio: 1 / 1;
+	${props => { 
+		if(props.isText) {
+			return `
+				font-size: 1.5rem;
+				font-family: "PressStart";
+			`;
+		} else {
+			return "aspect-ratio: 1 / 1;";
+		}
+	}}
+	
 
 	${(props) => props.backgroundColor ? `background-color: ${props.backgroundColor[0]};` : ""}
 	cursor: pointer;

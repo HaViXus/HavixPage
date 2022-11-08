@@ -1,8 +1,8 @@
 import React from "react";
-import { PixelsGallery } from "../../Pages/Gallery/Gallery";
-import { GalleryType } from "../../Pages/Gallery/Gallery.interfaces";
 import { GamesMenuPage } from "../../Pages/GamesMenuPage/GamesMenuPage";
 import {HomePage} from "../../Pages/HomePage/HomePage";
+import { PixelArtMenuPage } from "../../Pages/PixelArtMenuPage/PixelArtMenuPage";
+import { SpriteSheetMenuPage } from "../../Pages/SpriteSheetMenuPage/SpriteSheetMenuPage";
 import { SpriteSheetPage } from "../../Pages/SpriteSheetPage/SpriteSheetPage";
 import { RouterPathsDictionary } from "./Router.interfaces";
 
@@ -36,7 +36,7 @@ export const routerPaths: RouterPathsDictionary = {
 	SpriteSheetsMenu: {
 		path: "/Gallery/SpriteSheets",
 		nameToDisplay: "Sprite sheets",
-		pageComponent: <PixelsGallery type={GalleryType.SpriteSheet}/>,
+		pageComponent: <SpriteSheetMenuPage/>,
 		display: true,
 		category: "Gallery"
 	},
@@ -48,7 +48,7 @@ export const routerPaths: RouterPathsDictionary = {
 	PixelArts: {
 		path: "/Gallery/PixelArts",
 		nameToDisplay: "Pixel arts",
-		pageComponent: <PixelsGallery type={GalleryType.PixelArt}/>,
+		pageComponent: <PixelArtMenuPage/>,
 		display: true,
 		category: "Gallery"
 	},
