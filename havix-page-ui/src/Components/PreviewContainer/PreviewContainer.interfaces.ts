@@ -2,21 +2,21 @@ import { ReactNode } from "react";
 import { GalleryObject, PreviewFunctionProps } from "../../Pages/Gallery/Gallery.interfaces";
 
 export interface PreviewContainerProps {
-	//selectedObjectPath: string;
 	selectedObject: GalleryObject;
-	isFullScreenPreview: boolean;
-	onPreviewClick: (props: PreviewFunctionProps) => void;
+	isFullScreenPreview?: boolean;
+	onPreviewClick: (previewProps: PreviewFunctionProps) => void;
 	title: string;
 	description: string;
 	previewLeftButtonRef?: any;
 	previewRightButtonRef?: any;
-	//previewType?: GalleryType;
 	buttons?: ReactNode[];
+	isPanel?: boolean;
 }
 
 export interface PreviewContainerImageProps {
 	selectedObject: GalleryObject;
 	onImageClick: () => void;
+	withoutPanel: boolean;
 }
 
 export interface PreviewContainerPanelProps { 

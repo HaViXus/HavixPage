@@ -7,13 +7,22 @@ import { defaultDescription, defaultTitle } from "../../Components/PreviewContai
 import { getAllCoversMetadata, getGameCoverURL } from "./GamesMenuPage.adapters";
 import { emptyGalleryObject } from "../Gallery/Gallery.utils";
 import { GamesMenuButtonsPanel } from "./GamesMenuButtonsPanel";
+import { useNavigate } from "react-router-dom";
+import { PageTemplate } from "../PageTemplate/PageTemplate";
+import { GameData } from "../GameDetailsPage/GameDetailsPage.interfaces";
+import { getGameData } from "../GameDetailsPage/GameDetailsPage.adapters";
+import { createDownloadLink } from "../../Utils/createDownloadLink";
 
 
 export const GamesMenuPage = () => {
+	const navigate = useNavigate();
 	const [ selectedGameCover, setSelectedGameCover ] = useState<GalleryObject>(emptyGalleryObject);
 	const [ gameCoversMetadata, setGameCoversMetadata ] = useState<GalleryMetadata[]>([]);
 	const [ title, setTitle ] = useState<string>(defaultTitle);
 	const [ description, setDescription ] = useState<string>(defaultDescription);
+	const [ gameData, setGameData ] = useState<GameData>();
+
+	const gameName = selectedGameCover?.path?.split("/")?.[0];
 
 	useEffect(()=>{
 		getAllCoversMetadata(setGameCoversMetadata);
@@ -23,6 +32,9 @@ export const GamesMenuPage = () => {
 		if(selectedGameCover?.path) {
 			getSelectedGameCoverData(selectedGameCover , setSelectedGameCover);
 			updateGamePreviewData();
+			getGameData(gameName).then(response => {
+				setGameData(response);
+			});
 		}
 	}, [selectedGameCover?.path]);
 
@@ -59,17 +71,35 @@ export const GamesMenuPage = () => {
 	};
 
 	const onMoreButtonClick = () => {
-		console.log("A", selectedGameCover);
+		const gameDetailsPath = `/Games/details/${gameName}`;
+		navigate(gameDetailsPath);
 	};
 
 	const onPlayClick = () => {
-		console.log("B");
+		if(gameData?.available){
+			const gamePath = `/Games/${gameName}`;
+			navigate(gamePath);
+		} else {
+			fetch(`http://localhost:8082/games/getGameFile?gameName=${gameName}.rar`)
+				.then(response => {
+					response.blob().then(blob => {
+						const fileName = `${gameName}.rar`;
+						const url = window.URL.createObjectURL(blob);
+						const a = document.createElement("a");
+						a.href = url;
+						a.download = fileName;
+						a.click();
+					});
+				});		
+
+			//navigate(`/games/getGameFile?gameName=${gameName}.rar`);
+		}
 	};
 
-	const previewButtons = GamesMenuButtonsPanel({ onMoreButtonClick, onPlayClick});
+	const previewButtons = GamesMenuButtonsPanel({ onMoreButtonClick, onPlayClick, isAvailable: gameData?.available});
 
 	return(
-		<>
+		<PageTemplate>
 			{selectedGameCover && <Gallery selectedObject={selectedGameCover}
 				objectsMetadata={gameCoversMetadata}
 				objectReceiver={objectReceiver}
@@ -77,6 +107,6 @@ export const GamesMenuPage = () => {
 				previewButtons={previewButtons}
 				title={title}
 				description={description}/>}
-		</>
+		</PageTemplate>
 	);
 };

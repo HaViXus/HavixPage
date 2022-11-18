@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Direction, ListProps } from "./List.interfaces";
 import { StyledList, StyledListButton, StyledListContainer } from "./List.styles";
-import { ListImage } from "./ListImage";
+import { ListMediaTile } from "./ListMediaTile";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useKeyPress } from "../../Utils/useKeyPress";
 import { MouseButton, useMouseClick } from "../../Utils/useMouseClick";
@@ -11,7 +11,6 @@ import { getAllImagesNames, getAllImagesNamesFromRequest } from "./List.adapters
 import { GalleryMetadata } from "../../Pages/Gallery/Gallery.interfaces";
 
 const List = (props: ListProps) => {
-	//const [allImagesNames, setAllImagesNames] = useState<string[]>([]);
 	const {objectsMetadata, selectedObject } = props;
 	const [chunkPosition, setChunkPosition] = useState<number>(0);
 	const [maxChunkPosition, setMaxChunkPosition] = useState<number>(0);
@@ -83,15 +82,13 @@ const List = (props: ListProps) => {
 		const chunkObjects = getChunkObjectsMetadata();
 		const localIndex = index - chunkSize * chunkPosition;
 		const objectToReturn = chunkObjects?.[localIndex];
-		//const imagePath = props.dataPath + "/" + imageName;
 
-		return objectToReturn; //imageName ? imagePath : undefined;
+		return objectToReturn;
 	};
 
 	const createListTiles = () => {
 		const chunkObjectsMetadata = getChunkObjectsMetadata();
 		const tiles = chunkObjectsMetadata.map((objectMetadata: GalleryMetadata, index: number) => {
-			//const objectMetadata = props.dataPath + "/" + imageName;
 			const isDefaultSelection = !selectedObject?.path && index === 0;
 			const isSelected = objectMetadata?.path === selectedObject?.path || isDefaultSelection;
 			const globalIndex = chunkSize * chunkPosition + index;
@@ -104,7 +101,7 @@ const List = (props: ListProps) => {
 				setSelectedIndex(globalIndex);
 			};
 
-			return <ListImage key={objectMetadata.path}
+			return <ListMediaTile key={objectMetadata.path}
 				objectMetadata={objectMetadata}
 				objectReceiver={props.objectReceiver}
 				onClick={onImageClick}
@@ -122,21 +119,11 @@ const List = (props: ListProps) => {
 		props.onSelect(undefined);
 	};
 
-	// useEffect(()=>{
-	// 	if(props.imagesRequestPath){
-	// 		getAllImagesNamesFromRequest(props.imagesRequestPath, setAllImagesNames);
-	// 	} else {
-	// 		getAllImagesNames(props.dataPath, setAllImagesNames);
-	// 	}
-		
-	// }, [props.dataPath]);
-
 	useEffect(()=>{
 		const maxPosition = objectsMetadata?.length ? Math.ceil(objectsMetadata.length / chunkSize) - 1 : 0;
 		resetList(maxPosition);
-		console.log("MAX", maxPosition);
 	}, [objectsMetadata]);
-	console.log("OM: ", objectsMetadata);
+
 	const changePage = (direction: Direction) => {
 		const newChunkPosition = chunkPosition + 1 * direction;
 		if(newChunkPosition < 0){
@@ -152,15 +139,17 @@ const List = (props: ListProps) => {
 
 	const onRightClick = () => changePage(Direction.Right);
 
+	const buttonsDisabled = maxChunkPosition === 0;
+
 	return(
 		<StyledListContainer>
-			<StyledListButton onClick={onLeftClick}>
+			<StyledListButton onClick={onLeftClick} disabled={buttonsDisabled}>
 				<FontAwesomeIcon icon={faAngleLeft} />
 			</StyledListButton>
 			<StyledList>
 				{createListTiles()}
 			</StyledList>
-			<StyledListButton onClick={onRightClick}>
+			<StyledListButton onClick={onRightClick} disabled={buttonsDisabled}>
 				<FontAwesomeIcon icon={faAngleRight}/>
 			</StyledListButton>
 		</StyledListContainer>

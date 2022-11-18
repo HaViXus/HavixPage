@@ -12,6 +12,7 @@ export interface RouterPath {
 export enum RouterKeys {
     Home = "Home",
     GamesMenu = "GamesMenu",
+    GameDetails = "GameDetails",
 	Game="Game",
 	Gallery = "Gallery",
 	SpriteSheetsMenu = "SpriteSheetsMenu",

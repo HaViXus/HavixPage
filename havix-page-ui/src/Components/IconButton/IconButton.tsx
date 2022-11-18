@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import { IconButtonProps } from "./IconButton.interfaces";
 import { StyledIconButton } from "./IconButton.styles";
 

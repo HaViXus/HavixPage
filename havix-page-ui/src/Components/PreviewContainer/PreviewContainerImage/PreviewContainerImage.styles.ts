@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { Colors } from "../../../ThemeContext/ThemeContext.styles";
 
-export const StyledPreviewContainerImage = styled.div`
+export const StyledPreviewContainerImage = styled.div<{withoutPanel: boolean}>`
 	display: flex;
 	position: relative;
 	width: 100%;
-	margin-left: 40%;
+	${props=> !props.withoutPanel && "margin-left: 40%;"}
 	height: 100%;
 	background-color: ${Colors.gray};
 	justify-content: center;
@@ -33,4 +33,12 @@ export const StyledImageContainer = styled.div`
 			mix-blend-mode: exclusion;
 		}
 	}
+`;
+
+export const StyledMediaPlayerContainer = styled.iframe`
+	display: flex;
+	width: 100%;
+	height: 100%;
+	aspect-ratio: 650/315;
+	border: none;
 `;

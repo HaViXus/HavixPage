@@ -53,4 +53,8 @@ public class GameEndpoint {
         return controller.getAllImagesNames(gameName);
     }
 
+    @GetMapping("/getGameFile")
+    ResponseEntity<Resource> getGameFile(@RequestParam("gameName") String gameName) {
+        return controller.getGameFile(gameName);
+    }
 }

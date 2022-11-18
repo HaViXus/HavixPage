@@ -18,4 +18,10 @@ public class Game {
     private String description;
 
     private String controls;
+
+    private String fullDescription;
+
+    private String requirements;
+
+    private String aspectRatio;
 }

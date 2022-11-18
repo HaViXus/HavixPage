@@ -10,14 +10,14 @@ export const StyledIconButton = styled.button<{backgroundColor: ComponentColor, 
 	${props => { 
 		if(props.isText) {
 			return `
-				font-size: 1.5rem;
+				font-size: 4vh;
 				font-family: "PressStart";
 			`;
 		} else {
 			return "aspect-ratio: 1 / 1;";
 		}
 	}}
-	
+
 
 	${(props) => props.backgroundColor ? `background-color: ${props.backgroundColor[0]};` : ""}
 	cursor: pointer;
@@ -26,11 +26,13 @@ export const StyledIconButton = styled.button<{backgroundColor: ComponentColor, 
 		height: 85%;
 		${(props) => props.iconColor ? `color: ${props.iconColor[0]};` : ""}
 	}
+	${(props) => props.iconColor ? `color: ${props.iconColor[0]};` : ""}
 
 	&:hover{
 		${(props) => props.backgroundColor ? `background-color: ${props.backgroundColor[1]};` : ""}
 		svg{
 			${(props) => props.iconColor ? `color: ${props.iconColor[1]};` : ""}
-		}	
+		}
+		${(props) => props.iconColor ? `color: ${props.iconColor[1]};` : ""}
 	}
 `;

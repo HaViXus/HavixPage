@@ -9,7 +9,7 @@ export const StyledListContainer = styled.div`
 	user-select: none;
 `;
 
-export const StyledListButton = styled.div`
+export const StyledListButton = styled.div<{disabled?: boolean}>`
 	display: flex;
 	height: 100%;
 	width: 10%;
@@ -23,6 +23,17 @@ export const StyledListButton = styled.div`
 		font-size: 8rem;
 		background-color: ${Colors.lightGray};
 	}
+
+	${props => props.disabled && `
+		color: ${Colors.lightGray};
+		
+		&:hover{
+			cursor: default;
+			font-size: 7rem;
+			background-color: ${Colors.gray};
+			color: ${Colors.lightGray};
+		}
+	`}
 `;
 
 export const StyledList = styled.div`

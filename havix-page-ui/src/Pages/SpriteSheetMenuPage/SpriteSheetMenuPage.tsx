@@ -5,6 +5,7 @@ import { GalleryObject, GalleryMetadata, PreviewFunctionProps } from "../Gallery
 import { emptyGalleryObject } from "../Gallery/Gallery.utils";
 import { getAllSpriteSheetsMetadata, getSpriteSheetPreviewData, getSpriteSheetURI } from "./SpriteSheetMenuPage.adapters";
 import { useNavigate } from "react-router-dom";
+import { PageTemplate } from "../PageTemplate/PageTemplate";
 
 export const SpriteSheetMenuPage = () => {
 	const navigate = useNavigate();
@@ -62,13 +63,15 @@ export const SpriteSheetMenuPage = () => {
 	};
 
 	return (
-		<Gallery selectedObject={selectedSpriteSheet}
-			objectsMetadata={spriteSheetsMetadata}
-			objectReceiver={objectReceiver}
-			setSelectedObject={setSelectedSpriteSheet}
-			onPreviewClick={onSpriteSheetPreviewClick}
-			title={title}
-			description={description}/>
+		<PageTemplate>
+			<Gallery selectedObject={selectedSpriteSheet}
+				objectsMetadata={spriteSheetsMetadata}
+				objectReceiver={objectReceiver}
+				setSelectedObject={setSelectedSpriteSheet}
+				onPreviewClick={onSpriteSheetPreviewClick}
+				title={title}
+				description={description}/>
+		</PageTemplate>
 	);
 };
 

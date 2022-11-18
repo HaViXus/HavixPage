@@ -14,6 +14,7 @@ import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { Colors } from "../../ThemeContext/ThemeContext.styles";
 import { AnimationTileSettingsMenu } from "../../Components/AnimationTileSettingsMenu/AnimationTileSettingsMenu";
 import { SpriteSheetPageSettingsDefinition } from "./SpriteSheetPageSettingsDefinition";
+import { getTileId } from "../../Components/AnimationTile/AnimationTile.utils";
 
 export const SpriteSheetPage = (props: SpriteSheetPageProps) => {
 	const params = useParams();
@@ -22,11 +23,13 @@ export const SpriteSheetPage = (props: SpriteSheetPageProps) => {
 	const DEFAULT_BACKGROUND_COLOR = Colors.darkGray;
 	const DEFAULT_ANIMATION_SPEED = 75;
 
-	const [imageURL, setImageURL] = useState<string>();
-	const [animationsData, setAnimationsData] = useState<AnimationTileData[]>([]);
-	const [showSettingsPanel, setShowSettingsPanel] = useState<boolean>(false);
-	const [backgroundColor, setBackgroundColor] = useState<string>(DEFAULT_BACKGROUND_COLOR);
-	const [animationSpeed, setAnimationSpeed] = useState<number>(DEFAULT_ANIMATION_SPEED);
+	const [ imageURL, setImageURL ] = useState<string>();
+	const [ animationsData, setAnimationsData ] = useState<AnimationTileData[]>([]);
+	const [ showSettingsPanel, setShowSettingsPanel ] = useState<boolean>(false);
+	const [ backgroundColor, setBackgroundColor ] = useState<string>(DEFAULT_BACKGROUND_COLOR);
+	const [ animationSpeed, setAnimationSpeed ] = useState<number>(DEFAULT_ANIMATION_SPEED);
+	const [ selectedTileId, setSelectedTileId ] = useState<string>();
+	const [ hoveredTileId, setHoveredTileId ] = useState<string>();
 	
 	const getImageName = () => {
 		const extensionPosition = pageId.lastIndexOf(".");
@@ -41,14 +44,44 @@ export const SpriteSheetPage = (props: SpriteSheetPageProps) => {
 
 	const imageName = getImageName();
 
+	const onAnimationTileClick = (tileId: string) => {
+		if(tileId !== selectedTileId) {
+			setSelectedTileId(tileId);
+		} else {
+			setSelectedTileId("");
+		}
+	};
+
+	const onAnimationTileHoverBegin = (tileId: string) => {
+		setHoveredTileId(tileId);
+	};
+
+	const onAnimationTileHoverEnd = (tileId: string) => {
+		if(tileId === hoveredTileId){
+			setHoveredTileId("");
+		}
+	};
+
 	const getAnimationTiles = (animationsData: AnimationTileData[], animationSpeed: number, backgroundColor: string) => {
-		const tiles = animationsData.map((tileData: AnimationTileData) => (
-			<AnimationTile key={tileData.number}
-				imageURL={imageURL}
-				animationData={tileData}
-				animationSpeed={animationSpeed}
-				backgroundColor={backgroundColor}/>
-		));
+		const tiles = animationsData.map((tileData: AnimationTileData) => {
+			const tileId = getTileId(tileData.number, tileData.path);
+			const isSelected = tileId === selectedTileId;
+			const isHovered = tileId === hoveredTileId;
+			return (
+				<AnimationTile key={tileId}
+					imageURL={imageURL}
+					tileId={tileId}
+					animationData={tileData}
+					animationSpeed={animationSpeed}
+					backgroundColor={backgroundColor}
+					onTileClick={onAnimationTileClick}
+					onHoverBegin={onAnimationTileHoverBegin}
+					onHoverEnd={onAnimationTileHoverEnd}
+					isSelected={isSelected}
+					isHovered={isHovered}/>
+			);
+		});
+			
 		return tiles;
 	};
 
@@ -68,6 +101,15 @@ export const SpriteSheetPage = (props: SpriteSheetPageProps) => {
 	};
 
 	const menuItems = <SpriteSheetPageSettingsDefinition {...SettingsDefinitionProps}/>;
+
+	const getTileDataByTileId = (tileId: string) => {
+		const tileData = animationsData.find(animationData => {
+			const dataTileId = getTileId(animationData.number, animationData.path);
+			return dataTileId === tileId;
+		});
+
+		return tileData;
+	};
 
 	return(
 		<PageTemplate>
@@ -94,7 +136,9 @@ export const SpriteSheetPage = (props: SpriteSheetPageProps) => {
 							{getAnimationTiles(animationsData, animationSpeed, backgroundColor)}
 						</AnimationListContainer>
 					</StyledAnimationsContainer>
-					<SpriteSheetPreview imageURL={imageURL}/>
+					<SpriteSheetPreview imageURL={imageURL}
+						selectedTileData={getTileDataByTileId(selectedTileId)}
+						hoveredTileData={getTileDataByTileId(hoveredTileId)}/>
 				</StyledSpriteSheetContainer>
 			</StyledSpriteSheetPage>
 		</PageTemplate>

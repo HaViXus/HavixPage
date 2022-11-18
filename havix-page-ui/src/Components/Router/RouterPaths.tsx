@@ -1,4 +1,6 @@
 import React from "react";
+import { GameDetailsPage } from "../../Pages/GameDetailsPage/GameDetailsPage";
+import { GamePage } from "../../Pages/GamePage/GamePage";
 import { GamesMenuPage } from "../../Pages/GamesMenuPage/GamesMenuPage";
 import {HomePage} from "../../Pages/HomePage/HomePage";
 import { PixelArtMenuPage } from "../../Pages/PixelArtMenuPage/PixelArtMenuPage";
@@ -20,10 +22,15 @@ export const routerPaths: RouterPathsDictionary = {
 		pageComponent: <GamesMenuPage/>,
 		display: true
 	},
+	GameDetails: {
+		path: "/Games/details/:id",
+		nameToDisplay: "Game details",
+		pageComponent: <GameDetailsPage/>
+	},
 	Game: {
 		path: "/Games/:id",
 		nameToDisplay: "Game",
-		pageComponent: <GamesMenuPage/>,
+		pageComponent: <GamePage/>
 	},
 	Gallery: {
 		path: "/Gallery",
@@ -43,7 +50,7 @@ export const routerPaths: RouterPathsDictionary = {
 	SpriteSheet: {
 		path: "/Gallery/SpriteSheets/:id",
 		nameToDisplay: "Sprite sheet",
-		pageComponent: <SpriteSheetPage/>,
+		pageComponent: <SpriteSheetPage/>
 	},
 	PixelArts: {
 		path: "/Gallery/PixelArts",
@@ -56,12 +63,12 @@ export const routerPaths: RouterPathsDictionary = {
 		path: "/BoxOfStuff",
 		nameToDisplay: "Box of stuff",
 		pageComponent: <GamesMenuPage/>,
-		display: true,
+		display: true
 	},
 	Contact: {
 		path: "/Contact",
 		nameToDisplay: "Contact",
 		pageComponent: <GamesMenuPage/>,
-		display: true,
+		display: true
 	}
 };

@@ -35,7 +35,8 @@ export const getGamePreview = (
 	setTitle: (title: string) => void,
 	setDescription: (description: string) => void
 ) => {
-	const gameName = gameCoverPath.split("/")?.[1];
+	const gameName = gameCoverPath.split("/")?.[0];
+	console.log("GAME_PATH: ", gameCoverPath, gameName);
 	axios.get(`/games/get?gameName=${gameName}`).then(response => {
 		setTitle(gameName);
 		setDescription(response.data?.description);

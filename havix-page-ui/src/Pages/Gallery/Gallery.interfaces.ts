@@ -9,6 +9,7 @@ export interface GalleryProps {
 	previewButtons?: React.ReactNode[];
 	onPreviewClick?: (props: PreviewFunctionProps) => void;
 	fullScreenOnPreviewClick?: boolean;
+	isPreviewPanel?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

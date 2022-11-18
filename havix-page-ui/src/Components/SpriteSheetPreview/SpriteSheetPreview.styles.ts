@@ -20,7 +20,7 @@ export const StyledImageContainer = styled.div`
 	overflow: auto;
 `;
 
-export const StyledImage = styled.img<{zoom: number}>`
+export const StyledImage = styled.canvas<{zoom: number}>`
 	display: flex;
 	padding: calc(6% + 25px);
 	width: ${props=>`${100 * props.zoom}%`};

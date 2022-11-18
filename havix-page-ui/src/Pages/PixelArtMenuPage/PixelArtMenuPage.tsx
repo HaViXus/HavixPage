@@ -4,6 +4,7 @@ import { defaultTitle, defaultDescription } from "../../Components/PreviewContai
 import { Gallery } from "../Gallery/Gallery";
 import { GalleryObject, GalleryMetadata, PreviewFunctionProps } from "../Gallery/Gallery.interfaces";
 import { emptyGalleryObject } from "../Gallery/Gallery.utils";
+import { PageTemplate } from "../PageTemplate/PageTemplate";
 import { getAllPixelArtsMetadata, getPixelArtPreviewData, getPixelArtURI } from "./PixelArtMenuPage.adapters";
 
 
@@ -59,12 +60,14 @@ export const PixelArtMenuPage = () => {
 
 
 	return (
-		<Gallery selectedObject={pixelArtSheet}
-			objectsMetadata={pixelArtsMetadata}
-			objectReceiver={objectReceiver}
-			setSelectedObject={setSelectedPixelArt}
-			fullScreenOnPreviewClick={true}
-			title={title}
-			description={description}/>
+		<PageTemplate>
+			<Gallery selectedObject={pixelArtSheet}
+				objectsMetadata={pixelArtsMetadata}
+				objectReceiver={objectReceiver}
+				setSelectedObject={setSelectedPixelArt}
+				fullScreenOnPreviewClick={true}
+				title={title}
+				description={description}/>
+		</PageTemplate>
 	);
 };

@@ -20,3 +20,28 @@ export const StyledGalleryListContainer = styled.div`
 	width: 100%;
 	height: 30%;
 `;
+
+export const MoviePreviewIconContainer = styled.div`
+	display: flex;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+	font-size: 9vh;
+`;
+
+export const MoviePreviewImageContainer = styled.div`
+	display: flex;
+	width: 100%;
+	height: 100%;
+	position: relative;
+
+	&:hover{
+		${MoviePreviewIconContainer}{
+			 font-size: 12vh;
+		}
+	}
+`;

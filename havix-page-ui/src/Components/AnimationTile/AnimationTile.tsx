@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimationTileProps } from "./AnimationTile.interfaces";
 import { StyledAnimationTile, TileImage } from "./AnimationTile.styles";
-import { v4 as uuidv4 } from "uuid";
 import { useResizeDetector } from "react-resize-detector";
+import { getTileId } from "./AnimationTile.utils";
 
 export const AnimationTile = (props: AnimationTileProps) => {
 	const [forcedTileHeight, setForcedTileHeight] = useState<number>();
-	const tileId = `canvas_${uuidv4()}_${props.animationData.path}`;
+	const tileId = getTileId(props.animationData.number, props.animationData.path);
 	const { width, height, ref } = useResizeDetector();
 	const canvasRef = useRef(null);
 	const spriteSheet = new Image();
 
 	useEffect(() => {
-		console.log(ref, width, height);
+		//console.log(ref, width, height);
 		resizeTileToKeepAspectRatio(ref, width, height);
 	}, [width, height]);
 
@@ -105,15 +105,33 @@ export const AnimationTile = (props: AnimationTileProps) => {
 		}
 	};
 
+	const onTileClick = () => {
+		props?.onTileClick(tileId);
+	};
+
+	const onHoverBegin = () => {
+		props?.onHoverBegin(tileId);
+	};
+
+	const onHoverEnd = () => {
+		props?.onHoverEnd(tileId);
+	};
 
 	return(
-		<StyledAnimationTile ref={ref} height={forcedTileHeight}>
+		<StyledAnimationTile ref={ref} 
+			isSelected={props.isSelected}
+			isHovered={props.isHovered}
+			height={forcedTileHeight}
+		>
 			<TileImage ref={canvasRef}
 				id={tileId}
 				width={props.animationData.width}
 				height={props.animationData.height}
 				imageURL={props.imageURL}
 				animationData={props.animationData}
+				onClick={onTileClick}
+				onMouseEnter={onHoverBegin}
+				onMouseOut={onHoverEnd}
 			/>
 		</StyledAnimationTile>
 	);
