@@ -19,6 +19,7 @@ export enum RouterKeys {
 	SpriteSheet = "SpriteSheet",
 	PixelArts = "PixelArts",
 	BoxOfStuff = "BoxOfStuff",
+    BoxOfStuffContent = "BoxOfStuffContent",
 	Contact = "Contact"
 }
 

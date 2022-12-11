@@ -10,19 +10,32 @@ export const StyledGameDetails = styled.div`
 	overflow-y: auto;
 `;
 
+export const StyledGallery = styled.div`
+	display: flex;
+	height: 60vh;
+	min-height: 60vh;
+	width: 90%;
+`;
+
+export const StandardTextContainer = styled.div`
+	display: flex;
+	width: 90%;	
+	margin: 1rem 10% 0rem 10%;
+	padding-bottom: 2rem;
+`;
+
 export const Content = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
 	align-items: center;
-`;
 
-export const StyledGallery = styled.div`
-	display: flex;
-	height: 60vh;
-	min-height: 60vh;
-	width: 90%;
+	${StandardTextContainer} {
+		margin: 0;
+		margin-top: 1rem;
+		width: 100%;
+	}
 `;
 
 export const DescriptionAndPlayContainer = styled.div`
@@ -53,13 +66,8 @@ export const ButtonContainer = styled.div`
 
 export const TitleWrapper = styled.div`
 	display: flex;
+	flex-direction: column;
 	width: 90%;	
-	margin: 1rem 10% 1rem 10%;
+	margin: 1rem 0;
 `;
 
-export const StandardTextContainer = styled.div`
-	display: flex;
-	width: 90%;	
-	margin: 1rem 10% 0rem 10%;
-	padding-bottom: 2rem;
-`;

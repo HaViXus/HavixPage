@@ -7,6 +7,11 @@ export const StyledIconButton = styled.button<{backgroundColor: ComponentColor, 
 	height: 100%;
 	align-items: center;
 	justify-content: center;
+	
+	&:focus{
+		outline: none;
+	}
+
 	${props => { 
 		if(props.isText) {
 			return `

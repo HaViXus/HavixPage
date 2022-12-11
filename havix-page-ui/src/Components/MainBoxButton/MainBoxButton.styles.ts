@@ -18,6 +18,14 @@ const hoverEffectContainerAnimationOnHover = keyframes`
 	}
 `;
 
+export const hoverEffectImageAnimationOnHover = keyframes`
+	0%{}
+	100%{
+		width: 110%;
+		height: 110%;
+	}
+`;
+
 export const HoverEffectContainer = styled.div`
 	display: flex;
 	position: absolute;
@@ -25,11 +33,23 @@ export const HoverEffectContainer = styled.div`
 	height: 100%;
 `;
 
+export const StyledImage = styled.img<{isLoaded: boolean, isBlurred: boolean}>`
+	display: ${props => props.isLoaded ? "flex" : "none"};
+	width: 100%;
+	height: 100%;
+	image-rendering: pixelated;
+	object-fit: cover;
+	user-select: none;
+	${props => props.isBlurred ? "filter: blur(8px)" : ""};
+`;
+
 export const MainBoxButtonStyled = styled.div<{meanImageColor: string}>`
 	display: flex;
 	position: relative;
 	height: 100%;
 	aspect-ratio: 2 / 1;
+	align-items: center;
+	justify-content: center;
 	font-size: 8.5vh;
 	cursor: pointer;
 	overflow: hidden;
@@ -45,17 +65,13 @@ export const MainBoxButtonStyled = styled.div<{meanImageColor: string}>`
 			animation-duration: 0.08s;	
 			animation-fill-mode: forwards;
 		}
-	}
-`;
 
-export const StyledImage = styled.img<{isLoaded: boolean, isBlurred: boolean}>`
-	display: ${props => props.isLoaded ? "flex" : "none"};
-	width: 100%;
-	height: 100%;
-	image-rendering: pixelated;
-	object-fit: cover;
-	user-select: none;
-	${props => props.isBlurred ? "filter: blur(8px)" : ""};
+		${StyledImage}{
+			animation-name: ${hoverEffectImageAnimationOnHover};
+			animation-duration: 0.5s;	
+			animation-fill-mode: forwards;
+		}
+	}
 `;
 
 export const BoxButtonFooter = styled.div`

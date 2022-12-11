@@ -13,9 +13,6 @@ const MoviePreview = (props: {object: GalleryObject}) => {
 	const movieUrlParts = object.path?.split("/");
 	const lastUrlPartIndex = (movieUrlParts?.length || 0) - 1;
 	const movieId = lastUrlPartIndex && movieUrlParts?.[lastUrlPartIndex];
-
-
-	console.log("MOVIE_ID: ", movieId, object, lastUrlPartIndex, movieUrlParts);
 	
 
 	return (

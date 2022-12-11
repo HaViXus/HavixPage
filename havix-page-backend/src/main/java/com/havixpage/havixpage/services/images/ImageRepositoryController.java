@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -48,6 +49,8 @@ public class ImageRepositoryController {
                     .contentType(MediaType.IMAGE_PNG)
                     .body(resource);
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch(NoSuchFileException e){
             e.printStackTrace();
         } catch (IOException exception) {
             exception.printStackTrace();

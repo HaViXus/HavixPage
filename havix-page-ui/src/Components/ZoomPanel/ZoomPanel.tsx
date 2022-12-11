@@ -10,17 +10,17 @@ export const ZoomPanel = (props: ZoomPanelProps) => {
 		<StyledButtonsPanel>
 			<IconButton backgroundColor={[Colors.gray, Colors.lightGray]}
 				iconColor={["#ffffff", "#d7d7d7"]}
-				icon={faPlus}
+				iconDefinition={faPlus}
 				onClick={props.onZoomOnClick}
 			/>
 			<IconButton backgroundColor={[Colors.gray, Colors.lightGray]}
 				iconColor={["#ffffff", "#d7d7d7"]}
-				icon={faMinus}
+				iconDefinition={faMinus}
 				onClick={props.onZoomOutClick}
 			/>
 			<IconButton backgroundColor={[Colors.gray, Colors.lightGray]}
 				iconColor={["#ffffff", "#d7d7d7"]}
-				icon={faArrowsToDot}
+				iconDefinition={faArrowsToDot}
 				onClick={props.onDefaultZoomClick}
 			/>
 		</StyledButtonsPanel>

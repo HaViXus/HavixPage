@@ -3,15 +3,15 @@ import { routerPaths } from "../Router/RouterPaths";
 import { StyledNavigationElement, StyledNavigationPath } from "./NavigationPath.styled";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { LocationPathProps } from "./NavigationPath.interfaces";
 
-export const LocationPath = () => {
+export const LocationPath = (props: LocationPathProps) => {
 	const location = useLocation();
 	const pathName = location.pathname;
 	const splitedPathName = pathName.split("/").filter(pathNameFragment => !!pathNameFragment);
 
 	const getAllLocationFragments = () => {
 		const locationFragments = splitedPathName.reduce((previous, slicedValue, currentIndex) => {
-			console.log("PREV: ", previous);
 			if(currentIndex > 0){
 				const newPath = `${previous[currentIndex - 1]}/${slicedValue}`;
 				return [...previous, newPath];
@@ -21,7 +21,24 @@ export const LocationPath = () => {
 			
 		}, []);
 
+		if(props.removeLastPart) {
+			locationFragments.pop();
+			splitedPathName.pop();
+		}
+
 		return locationFragments as string[];
+	};
+
+	const createHomeElement = () => {
+		const element = <a href={"/"}> Home </a>;
+		return (
+			<>
+				<StyledNavigationElement>
+					{element}
+				</StyledNavigationElement>
+				<FontAwesomeIcon icon={faCaretRight}/>
+			</>
+		);
 	};
 
 	const createLocationElements = () => {
@@ -47,7 +64,10 @@ export const LocationPath = () => {
 			);
 		});
 
-		return locationElements;
+		const HomeElement = createHomeElement();
+		const finalElements = [HomeElement, ...locationElements];
+
+		return finalElements;
 	};
 
 	return(

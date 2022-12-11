@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { getImageURL } from "../../Components/PreviewContainer/PreviewContainer.adapters";
@@ -15,6 +15,7 @@ import { Colors } from "../../ThemeContext/ThemeContext.styles";
 import { AnimationTileSettingsMenu } from "../../Components/AnimationTileSettingsMenu/AnimationTileSettingsMenu";
 import { SpriteSheetPageSettingsDefinition } from "./SpriteSheetPageSettingsDefinition";
 import { getTileId } from "../../Components/AnimationTile/AnimationTile.utils";
+import { useOutsideClick } from "../../Utils/useOutsideClick";
 
 export const SpriteSheetPage = (props: SpriteSheetPageProps) => {
 	const params = useParams();
@@ -93,6 +94,10 @@ export const SpriteSheetPage = (props: SpriteSheetPageProps) => {
 		}
 	};
 
+	const onSettingButtonClick = (currentSettingsState: boolean) => {
+		return () => setShowSettingsPanel(!currentSettingsState);
+	};
+
 	const SettingsDefinitionProps: SettingsProps = {
 		backgroundColor,
 		setBackgroundColor,
@@ -111,6 +116,14 @@ export const SpriteSheetPage = (props: SpriteSheetPageProps) => {
 		return tileData;
 	};
 
+	const ref = useRef();
+	
+	const onOutsideMenuClick = (_event: any) => {
+		toggleSettings(false);
+	};
+
+	useOutsideClick(ref, onOutsideMenuClick);
+
 	return(
 		<PageTemplate>
 			<StyledSpriteSheetPage>
@@ -121,14 +134,15 @@ export const SpriteSheetPage = (props: SpriteSheetPageProps) => {
 								<LocationPath />
 								<TitleContainer> {imageName}</TitleContainer>
 							</StyledAnimationsContainerData>
-							<AnimationsContainerSettings>
+							<AnimationsContainerSettings ref={ref}>
 								<IconButton backgroundColor={[Colors.gray, Colors.lightGray]}
 									iconColor={["#ffffff", "#d7d7d7"]}
-									icon={faGear}
-									onClick={toggleSettings}/>
+									iconDefinition={faGear}
+									onClick={onSettingButtonClick(showSettingsPanel)}/>
 								<AnimationTileSettingsMenu isShowing={showSettingsPanel}
 									toggle={toggleSettings}
 									items={menuItems}
+									
 								/>
 							</AnimationsContainerSettings>
 						</StyledAnimationsContainerHeader>

@@ -5,7 +5,7 @@ export const StyledPreviewContainerImage = styled.div<{withoutPanel: boolean}>`
 	display: flex;
 	position: relative;
 	width: 100%;
-	${props=> !props.withoutPanel && "margin-left: 40%;"}
+	${props=> !props.withoutPanel && "margin-left: 45%;"}
 	height: 100%;
 	background-color: ${Colors.gray};
 	justify-content: center;

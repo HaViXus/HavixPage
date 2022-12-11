@@ -19,8 +19,16 @@ export const NavbarMenu = (props: NavbarTileProps) => {
 
 	useOutsideClick(menuRef, hideVisibleTile);
 
-	const onRootTileClick = () => {
-		setIsMenuVisible(!isMenuVisible);
+	//TO DO - CLICK = MOVE TO
+	// const onRootTileClick = () => {
+	// 	setIsMenuVisible(!isMenuVisible);
+	// };
+
+	const onRootTileHoverBegin = () => {
+		setIsMenuVisible(true);
+	};
+	const onRootTileHoverEnd = () => {
+		setIsMenuVisible(false);
 	};
 
 	const isMenuTileSelected = (id: RouterKeys) => {
@@ -54,7 +62,8 @@ export const NavbarMenu = (props: NavbarTileProps) => {
 
 	return(
 		<StyledNavbarTile ref={menuRef}
-			onClick={onRootTileClick}
+			onMouseEnter={onRootTileHoverBegin}
+			onMouseLeave={onRootTileHoverEnd}
 			isSelected={props.isSelected}
 			isLast={props.isLast}
 		>

@@ -1,10 +1,25 @@
 import { TitleProps } from "./Title.interfaces";
-import { StyledTitle } from "./Title.styles";
+import { StyledLinkTitle, StyledTitle } from "./Title.styles";
 
 export const Title = (props: TitleProps) => {
+	const baseApplicationPath = process.env.REACT_APP_DOMAIN;
+	const link = baseApplicationPath + props.href;
+
+	const getTitle = () => {
+		const Title = props.isLink ? (
+			<StyledLinkTitle href={link} size={props.size}>
+				{props.text}
+			</StyledLinkTitle>
+		) : (
+			<StyledTitle size={props.size}>
+				{props.text}
+			</StyledTitle>
+		);
+
+		return Title;
+	};
+
 	return (
-		<StyledTitle size={props.size}>
-			{props.text}
-		</StyledTitle>
+		getTitle()
 	);
 };

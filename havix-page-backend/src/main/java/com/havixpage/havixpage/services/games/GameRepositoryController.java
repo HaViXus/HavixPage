@@ -89,15 +89,7 @@ public class GameRepositoryController {
 
         try {
             File file = new File(stringPath);
-            Path path = Paths.get(file.getAbsolutePath());
-
             InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-            String mimeType = Files.probeContentType(path);
-            //ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
-            //HttpHeaders headers = new HttpHeaders();
-            //headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-            //headers.add("Pragma", "no-cache");
-            //headers.add("Expires", "0");
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())

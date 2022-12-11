@@ -4,16 +4,20 @@ import { AnimationTileSettingsMenuProps } from "./AnimationTileSettingsMenu.inte
 import { SettingsContainer } from "./AnimationTileSettingsMenu.styles";
 
 export const AnimationTileSettingsMenu = (props: AnimationTileSettingsMenuProps) => {
-	const ref = useRef();
+	// const ref = useRef();
 	
-	const onOutsideMenuClick = (_event: any) => {
-		props.toggle(false);
-	};
+	// const onOutsideMenuClick = (_event: any) => {
+	// 	props.toggle(false);
+	// };
 
-	useOutsideClick(ref, onOutsideMenuClick);
+	// useOutsideClick(ref, onOutsideMenuClick);
 
 	return (
-		props.isShowing && <SettingsContainer ref={ref}>
+		//Style absolute is here as hack for nes library container template. Without absolute - white borders will disappear. 
+		props.isShowing && <SettingsContainer //ref={ref} 
+			className="nes-container is-dark is-rounded" 
+			style={{position: "absolute"}}
+		>
 			{props.items}
 		</SettingsContainer>
 	);

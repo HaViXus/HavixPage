@@ -12,7 +12,6 @@ export const AnimationTile = (props: AnimationTileProps) => {
 	const spriteSheet = new Image();
 
 	useEffect(() => {
-		//console.log(ref, width, height);
 		resizeTileToKeepAspectRatio(ref, width, height);
 	}, [width, height]);
 

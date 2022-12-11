@@ -2,9 +2,12 @@ import { faDownload, faGamepad } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IconButton } from "../../Components/IconButton/IconButton";
+import { ButtonNESTemplate } from "../../Components/IconButton/IconButton.interfaces";
 import { LocationPath } from "../../Components/NavigationPath/NavigationPath";
 import { TextHTML } from "../../Components/TextHTML/TextHTML";
 import { Title } from "../../Components/Title/Title";
+import { StyledContentContainer } from "../../Components/Utils/StyledContentContainer";
+import { StyledBottomSpace } from "../BoxOfStuffContentPage/BoxOfStuffContentPage.styles";
 import { Gallery } from "../Gallery/Gallery";
 import { GalleryMetadata, GalleryObject, GalleryObjectType } from "../Gallery/Gallery.interfaces";
 import { emptyGalleryObject } from "../Gallery/Gallery.utils";
@@ -72,6 +75,7 @@ export const GameDetailsPage = () => {
 		onClick={onButtonClick} 
 		backgroundColor={["#a70000", "#880000"]}
 		iconColor={["#ffffff", "#d7d7d7"]}
+		nesTemplate={ButtonNESTemplate.red}
 	/>;
 
 	
@@ -93,8 +97,8 @@ export const GameDetailsPage = () => {
 							isPreviewPanel={false}
 						/>
 					</StyledGallery>
+					
 					<DescriptionAndPlayContainer>
-						<Title text={"Description"} size={2}/>
 						<PlayNowContainer>
 							<PlayNowTextContainer>
 								<Title text={playNowText} size={2}/>
@@ -104,21 +108,28 @@ export const GameDetailsPage = () => {
 							</ButtonContainer>
 						</PlayNowContainer>
 					</DescriptionAndPlayContainer>
-					<StandardTextContainer>
-						<TextHTML text={gameData?.fullDescription}/>
-					</StandardTextContainer>
-					<TitleWrapper>
-						<Title text={"Controls"} size={2}/>
-					</TitleWrapper>
-					<StandardTextContainer>
-						<TextHTML text={gameData?.controls}/>
-					</StandardTextContainer>
-					<TitleWrapper>
-						<Title text={"Requirements"} size={2}/>
-					</TitleWrapper>
-					<StandardTextContainer>
-						<TextHTML text={gameData?.requirements}/>
-					</StandardTextContainer>
+
+					<StyledContentContainer>
+						<TitleWrapper>
+							<Title text={"Description"} size={2}/>
+						</TitleWrapper>
+						<StandardTextContainer>
+							<TextHTML text={gameData?.fullDescription}/>
+						</StandardTextContainer>
+						<TitleWrapper>
+							<Title text={"Controls"} size={2}/>
+						</TitleWrapper>
+						<StandardTextContainer>
+							<TextHTML text={gameData?.controls}/>
+						</StandardTextContainer>
+						<TitleWrapper>
+							<Title text={"Requirements"} size={2}/>
+						</TitleWrapper>
+						<StandardTextContainer>
+							<TextHTML text={gameData?.requirements}/>
+						</StandardTextContainer>
+						<StyledBottomSpace/>
+					</StyledContentContainer>	
 				</Content>
 			</StyledGameDetails>
 		</PageTemplate>

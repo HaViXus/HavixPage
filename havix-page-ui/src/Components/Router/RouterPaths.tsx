@@ -1,4 +1,6 @@
 import React from "react";
+import { BoxOfStuffContentPage } from "../../Pages/BoxOfStuffContentPage/BoxOfStuffContentPage";
+import { BoxOfStuffPage } from "../../Pages/BoxOfStuffPage/BoxOfStuffPage";
 import { GameDetailsPage } from "../../Pages/GameDetailsPage/GameDetailsPage";
 import { GamePage } from "../../Pages/GamePage/GamePage";
 import { GamesMenuPage } from "../../Pages/GamesMenuPage/GamesMenuPage";
@@ -62,8 +64,14 @@ export const routerPaths: RouterPathsDictionary = {
 	BoxOfStuff: {
 		path: "/BoxOfStuff",
 		nameToDisplay: "Box of stuff",
-		pageComponent: <GamesMenuPage/>,
+		pageComponent: <BoxOfStuffPage/>,
 		display: true
+	},
+	BoxOfStuffContent: {
+		path: "/BoxOfStuff/Content/:id",
+		nameToDisplay: "Box of stuff content",
+		pageComponent: <BoxOfStuffContentPage/>,
+		display: false
 	},
 	Contact: {
 		path: "/Contact",

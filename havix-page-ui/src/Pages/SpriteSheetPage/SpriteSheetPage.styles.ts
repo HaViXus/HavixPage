@@ -43,6 +43,7 @@ export const AnimationsContainerSettings = styled.div`
 	display: flex;	
 	position: relative;
 	width: 10%;
+	outline: none;
 `;
 
 export const TitleContainer = styled.div`
